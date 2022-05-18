@@ -36,6 +36,7 @@ public class LoginWindow extends JFrame {
         this.setSize(400, 400);
         this.setLayout(null);
         this.setBackground(Color.red);
+        this.setLocationRelativeTo(null);
 
         chooseUsername = new JLabel("Enter your username:");
         chooseUsername.setLocation(120, 100);

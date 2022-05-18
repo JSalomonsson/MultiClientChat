@@ -21,7 +21,6 @@ public class ClientHomeView extends JFrame {
     public ClientHomeView(ClientController controller){
         super("CHAT NEW HOME VIEW");
         this.controller = controller;
-        this.setLocationRelativeTo(null);
 
         SetUp();
     }
@@ -47,7 +46,7 @@ public class ClientHomeView extends JFrame {
         //list displaying people online
         usersOnline = new JList();
         usersOnline.setBackground(Color.pink);
-        usersOnline.setLocation(0, 120);
+        usersOnline.setLocation(0, 115);
         usersOnline.setSize(width/2, 420);
         this.add(usersOnline);
 
@@ -58,20 +57,20 @@ public class ClientHomeView extends JFrame {
 
         //BUTTONS
         startChat = new JButton("Start Chat");
-        startChat.setLocation(20, 545);
+        startChat.setLocation(20, 536);
         startChat.setSize(100, 25);
         startChat.addActionListener(l-> new ChatWindow(controller));
         this.add(startChat);
 
         addFriend = new JButton("Add Friend");
-        addFriend.setLocation(250, 545);
+        addFriend.setLocation(250, 536);
         addFriend.setSize(100, 25);
         this.add(addFriend);
 
 
         //friend-list
         friendList = new JList();
-        friendList.setLocation(200, 120);
+        friendList.setLocation(200, 115);
         friendList.setSize(width/2, 420);
         friendList.setBackground(Color.GRAY);
         this.add(friendList);

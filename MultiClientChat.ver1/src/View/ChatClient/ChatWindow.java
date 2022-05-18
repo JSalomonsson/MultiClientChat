@@ -26,7 +26,6 @@ public class ChatWindow extends JFrame {
         this.setSize(600, 600);
         this.setResizable(false);
         this.setLayout(null);
-        this.setLocationRelativeTo(null);
 
         //chat window
         chat = new JTextArea();
@@ -41,7 +40,7 @@ public class ChatWindow extends JFrame {
         //message box
         typeMessageBox = new JTextField();
         typeMessageBox.setLocation(5, 470);
-        typeMessageBox.setSize(300, 100);
+        typeMessageBox.setSize(300, 90);
         typeMessageBox.setBackground(Color.GRAY);
         this.add(typeMessageBox);
 
@@ -50,8 +49,8 @@ public class ChatWindow extends JFrame {
         peopleInChat.setBackground(Color.cyan);
         JScrollPane s = new JScrollPane();
         s.setViewportView(peopleInChat);
-        s.setLocation(310,0);
-        s.setSize(300, 500);
+        s.setLocation(310,5);
+        s.setSize(300, 460);
         this.add(s);
 
         usersInChat = new JLabel("People in chat:");
@@ -61,13 +60,13 @@ public class ChatWindow extends JFrame {
 
         //buttons
         sendMessage = new JButton("Send");
-        sendMessage.setLocation(300, 500);
+        sendMessage.setLocation(305, 500);
         sendMessage.setSize(75, 25);
         sendMessage.addActionListener(l -> sendMessage());
         this.add(sendMessage);
 
         addImage = new JButton("Image");
-        addImage.setLocation(300, 550);
+        addImage.setLocation(305, 525);
         addImage.setSize(75, 25);
         //addImage.addActionListener();
         this.add(addImage);

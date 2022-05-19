@@ -26,7 +26,6 @@ public class ChatWindow extends JFrame {
         this.setSize(600, 600);
         this.setResizable(false);
         this.setLayout(null);
-        this.setLocationRelativeTo(null);
 
         //chat window
         chat = new JTextArea();

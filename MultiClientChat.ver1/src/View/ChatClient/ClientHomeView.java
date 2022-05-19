@@ -16,7 +16,6 @@ public class ClientHomeView extends JFrame {
     public ClientHomeView(ClientController controller){
         super("CHAT NEW HOME VIEW");
         this.controller = controller;
-        this.setLocationRelativeTo(null);
 
         setup();
         pack();

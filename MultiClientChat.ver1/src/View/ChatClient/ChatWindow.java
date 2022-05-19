@@ -12,7 +12,7 @@ public class ChatWindow extends JFrame {
     private JTextArea chat;
     private JButton sendMessage;
     private JButton addImage;
-    private JList<String> peopleInChat;
+    private JList<JLabel> peopleInChat;
     private JLabel usersInChat;
 
     public ChatWindow(ClientController controller, String thisUser, String userToChatWith){
@@ -26,6 +26,7 @@ public class ChatWindow extends JFrame {
         this.setSize(600, 600);
         this.setResizable(false);
         this.setLayout(null);
+        this.setLocationRelativeTo(null);
 
         //chat window
         chat = new JTextArea();

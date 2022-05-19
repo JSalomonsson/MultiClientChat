@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="fdc4715c-580c-4e1c-9f03-f1a933a7207b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/MultiClientChat.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Client$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI$enterServerButtonListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI$sendMessageButtonListener.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Server$ClientHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Server$Worker.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Server.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ClientController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ClientMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/PROJEKTSTATUS_README.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/Server.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ServerClientHandler.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ServerController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ServerMain.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/TestServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/MainGUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/Buffer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/ChatMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/Client.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/ClientManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/LoggedInManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/MessageManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/MessageServer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/NetworkMessage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/ChatWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/ClientHomeView.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/LogIn/MainFrame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/LogIn/MainPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/LoginWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/MainFrame.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/MainPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/NorthPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthEastPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthWestPanel.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/Server/ServerUI.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="29Nflsi1jKTcaYj910yAl3Ab3ZI" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "jdk.selected.JAVA_MODULE": "12",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
+  }
+}]]></component>
+  <component name="RunManager" selected="Application.Controller.ClientMain">
+    <configuration name="Controller.ClientMain" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Controller.ClientMain" />
+      <module name="MultiClientChat" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerMain" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Controller.ServerMain" />
+      <module name="MultiClientChat" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Controller.ClientMain" />
+      <item itemvalue="Application.ServerMain" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Controller.ClientMain" />
+        <item itemvalue="Application.ServerMain" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fdc4715c-580c-4e1c-9f03-f1a933a7207b" name="Changes" comment="" />
+      <created>1652958617570</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1652958617570</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

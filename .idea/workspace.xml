@@ -2,50 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fdc4715c-580c-4e1c-9f03-f1a933a7207b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/MultiClientChat.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Client$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Client.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI$enterServerButtonListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI$sendMessageButtonListener.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/MainGUI.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Server$ClientHandler.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Server$Worker.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ClientController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ClientMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/PROJEKTSTATUS_README.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/Server.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ServerClientHandler.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ServerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/ServerMain.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Controller/TestServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/MainGUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/Buffer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/ChatMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/Client.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/ClientManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/LoggedInManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/MessageManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/MessageServer.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/NetworkMessage.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/Model/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/ChatWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/ClientHomeView.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/LogIn/MainFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/LogIn/MainPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/LoginWindow.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/MainFrame.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/MainPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/NorthPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthEastPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthWestPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/Server/ServerUI.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/PROJEKTSTATUS_README.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,16 +21,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "jdk.selected.JAVA_MODULE": "12",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;12&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.Controller.ClientMain">
     <configuration name="Controller.ClientMain" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Controller.ClientMain" />

@@ -13,15 +13,9 @@ import java.io.File;
 import java.io.IOException;
 
 public class LoginWindow extends JFrame {
-    private ClientController controller;
+    private final ClientController controller;
     private JTextField enterUsername;
-    private JLabel chooseUsername;
     private String myUsername;
-    private JButton enterChat;
-    private String username;
-    private JPanel panel;
-    private JTextField messageBox;
-    private JButton sendMessage;
     private ImageIcon icon;
 
     public LoginWindow(ClientController controller){
@@ -38,7 +32,7 @@ public class LoginWindow extends JFrame {
         this.setBackground(Color.red);
         this.setLocationRelativeTo(null);
 
-        chooseUsername = new JLabel("Enter your username:");
+        JLabel chooseUsername = new JLabel("Enter your username:");
         chooseUsername.setLocation(120, 100);
         chooseUsername.setSize(200, 50);
         this.add(chooseUsername);
@@ -46,10 +40,9 @@ public class LoginWindow extends JFrame {
         enterUsername = new JTextField();
         enterUsername.setLocation(100, 150);
         enterUsername.setSize(200, 25);
-        //enterUsername.addActionListener(l -> new MainPanel.textFieldListener());
         this.add(enterUsername);
 
-        enterChat = new JButton("Login");
+        JButton enterChat = new JButton("Login");
         enterChat.setLocation(150, 300);
         enterChat.setSize(75, 25);
         enterChat.addActionListener(new loginButtonListener());
@@ -67,9 +60,7 @@ public class LoginWindow extends JFrame {
             }    else {
                 newUser();
                 setVisible(false);
-                ClientHomeView homeView = new ClientHomeView(controller);
-                homeView.SetUp();
-                //controller.test();
+                controller.showMainForm();
             }
 
         }
@@ -106,7 +97,6 @@ public class LoginWindow extends JFrame {
 
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             selectedFile = jfc.getSelectedFile();
-            System.out.println(selectedFile.getAbsolutePath());
         }
         return selectedFile.getAbsolutePath();
     }
@@ -116,11 +106,11 @@ public class LoginWindow extends JFrame {
         return enterUsername.getText();
     }
 
-    public ImageIcon getImage() {
+    public ImageIcon getImageIcon() {
         return icon;
     }
 
     public void loginUser(){
-        controller.loginUser(getUsername(), getImage());
+        controller.loginUser(getUsername(), getImageIcon());
     }
 }

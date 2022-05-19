@@ -2,26 +2,21 @@ package Controller;
 
 import Model.Buffer;
 import Model.NetworkMessage;
-import Model.User;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ServerClientHandler {
-    public static ArrayList<ServerClientHandler> clientHandlers = new ArrayList<>();
     private Server server;
     private Socket socket;
     private Buffer<NetworkMessage> buffer;
-    private static HashMap<User, ServerClientHandler> online = new HashMap<User, ServerClientHandler>();
 
     public void connect(Server server, Socket socket) {
         this.server = server;
         this.socket = socket;
-        buffer = new Buffer<NetworkMessage>();
+        buffer = new Buffer<>();
 
         new ClientInputThread().start();
         new ClientOutputThread().start();
@@ -66,6 +61,7 @@ public class ServerClientHandler {
     }
 
     public void sendMessageToClient(NetworkMessage networkMessage) {
+        System.out.println("Added message to buffer: " + networkMessage.getTypeOfMsg());
         buffer.put(networkMessage);
     }
 

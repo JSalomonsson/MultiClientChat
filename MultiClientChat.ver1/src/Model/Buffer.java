@@ -6,7 +6,6 @@ public class Buffer<T> {
 
     public synchronized void put(T obj) {
         buffer.addLast(obj);
-        System.out.println("New message added to buffer");
         notifyAll();
     }
 

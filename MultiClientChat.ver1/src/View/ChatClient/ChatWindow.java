@@ -7,21 +7,21 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class ChatWindow extends JFrame {
-    private ClientController controller;
+    private final ClientController controller;
     private JTextField typeMessageBox;
     private JTextArea chat;
     private JButton sendMessage;
     private JButton addImage;
-    private JList peopleInChat;
+    private JList<String> peopleInChat;
     private JLabel usersInChat;
 
-    public ChatWindow(ClientController controller){
+    public ChatWindow(ClientController controller, String thisUser, String userToChatWith){
         super("Chat");
         this.controller = controller;
-        setUp(); //call setup-method which setUp all GUI-pars for chat window
+        setUp(thisUser, userToChatWith); //call setup-method which setUp all GUI-pars for chat window
     }
 
-    private void setUp() {
+    private void setUp(String thisUser, String userToChatWith) {
         //main frame
         this.setSize(600, 600);
         this.setResizable(false);
@@ -33,7 +33,6 @@ public class ChatWindow extends JFrame {
         chat.setEditable(false);
         chat.setLocation(5, 5);
         chat.setSize(300, 460);
-        chat.setBackground(Color.pink);
         chat.setFont(new Font("Comic sans", Font.PLAIN, 15));
         chat.setLineWrap(true);
         this.add(chat);
@@ -42,12 +41,12 @@ public class ChatWindow extends JFrame {
         typeMessageBox = new JTextField();
         typeMessageBox.setLocation(5, 470);
         typeMessageBox.setSize(300, 100);
-        typeMessageBox.setBackground(Color.GRAY);
         this.add(typeMessageBox);
 
         //friends in chat
-        peopleInChat = new JList();
-        peopleInChat.setBackground(Color.cyan);
+        peopleInChat = new JList<>();
+        String[] users = new String[]{thisUser, userToChatWith};
+        peopleInChat.setListData(users);
         JScrollPane s = new JScrollPane();
         s.setViewportView(peopleInChat);
         s.setLocation(310,0);

@@ -1,23 +1,29 @@
 package Controller;
 import Model.*;
+import View.ChatClient.ChatWindow;
+import View.ChatClient.ClientHomeView;
 import View.ChatClient.LoginWindow;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ClientController {
-    private LoginWindow loginGUI;
+    private LoginWindow loginView;
+    private ClientHomeView homeView;
+
+    private final HashMap<User, ChatWindow> chatWindows;
     private Client client;
     private User user;
-    private String username;
-    private Image image;
-    private Buffer<NetworkMessage> buffer;
+    private final Buffer<NetworkMessage> buffer;
 
+    private final LoggedInManager loggedInUsers;
 
     public ClientController(){
-        loginGUI = new LoginWindow(this);
-        buffer = new Buffer<NetworkMessage>();
+        loginView = new LoginWindow(this);
+        buffer = new Buffer<>();
+        loggedInUsers = new LoggedInManager(user);
+        chatWindows = new HashMap<>();
     }
 
     public void login(User user) {
@@ -32,7 +38,6 @@ public class ClientController {
 
 
     /*
-
     public User newUser() {
         if(loginGUI.getUsername() != null) {
             username = loginGUI.getUsername();
@@ -81,13 +86,6 @@ public class ClientController {
 
      */ //new user
 
-
-
-    public String[] userArray() {
-        String[] users = {"Erik", "HungaMördaren"};
-        return users;
-    }
-
     public void sendMessage(String msg, ArrayList<String> receivers) {
         /*
         skapa ett chattmeddelande
@@ -106,14 +104,33 @@ public class ClientController {
     public void sendChatMessageToServer(ChatMessage msg){
         NetworkMessage message = new NetworkMessage("chatmessage", msg);
         client.sendNetworkMessage(message);
-
     }
 
     public void receiveChatMessageFromServer(ChatMessage chatMessage) {
-        /*
-        detta ska hamna i guit
-         */
-
         System.out.println(chatMessage.getMessageText());
+    }
+
+    public void addNewLoggedInUser(User user) {
+        loggedInUsers.add(user);
+    }
+
+    public void emptyLoggedInUsers() {
+        loggedInUsers.clear();
+    }
+
+    public void updateLoggedInUsersView() {
+        homeView.setLoggedInUsers(loggedInUsers.getAsStringArray());
+        homeView.setUser(user.getUsername(), user.getIcon());
+    }
+
+    public void showMainForm() {
+        homeView = new ClientHomeView(this);
+        homeView.setup();
+    }
+
+    public void openChatWith(String username) {
+        User userToChatWith = loggedInUsers.getByUserName(username);
+        ChatWindow chat = new ChatWindow(this, user.getUsername(), userToChatWith.getUsername());
+        chatWindows.put(userToChatWith, chat);
     }
 }

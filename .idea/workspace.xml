@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fdc4715c-580c-4e1c-9f03-f1a933a7207b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/MultiClientChat.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Client$1.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/out/production/MultiClientChat/Client.class" beforeDir="false" />
@@ -43,6 +44,8 @@
       <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthPanel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/ChatClient/list/SouthWestPanel.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/MultiClientChat.ver1/src/View/Server/ServerUI.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/PROJEKTSTATUS_README.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainGUI.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

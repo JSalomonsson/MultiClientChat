@@ -5,17 +5,23 @@ import java.util.List;
 
 public class LoggedInManager {
     private final List<User> loggedInUsers;
+    private final List<User> friends;
 
     //private final List<User> friends;
     private User thisUser;
 
     public LoggedInManager(User thisUser){
         loggedInUsers = new ArrayList<>();
+        friends = new ArrayList<>();
         this.thisUser = thisUser;
     }
 
     public void add(User user){
         loggedInUsers.add(user);
+    }
+
+    public void addFriend(User user) {
+        friends.add(user);
     }
 
     @Override
@@ -39,6 +45,9 @@ public class LoggedInManager {
         return loggedInUsers.stream().map(user -> user.getUsername()).toList().toArray(new String[0]);
     }
 
+    public String[] getFriendsStringArray() {
+        return friends.stream().map(user -> user.getUsername()).toList().toArray(new String[0]);
+    }
     public User getByUserName(String username) {
         for(User user : loggedInUsers){
             if(user.getUsername().equals(username)){
@@ -46,5 +55,9 @@ public class LoggedInManager {
             }
         }
         return null;
+    }
+
+    public List<User> getLoggedInUsers() {
+        return loggedInUsers;
     }
 }

@@ -17,6 +17,9 @@ public class ClientManager {
         clients.put(user, clientHandler);
     }
 
+    /**
+     * Loops through logged-in users and sends them to the client
+     */
     public synchronized void sendLoggedInUsers() {
         for(Map.Entry<User, ServerClientHandler> clientToSendTo : clients.entrySet()){
             clientToSendTo.getValue().sendMessageToClient(new NetworkMessage("logged_in_list", clients.size()));

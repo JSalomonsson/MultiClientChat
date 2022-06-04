@@ -10,6 +10,7 @@ public class ClientHomeView extends JFrame {
     private JLabel usernameLabel;
     private JLabel imageLabel;
     private JList<String> usersOnline;
+    private JList<String> friendList;
 
     private JPanel mainPanel;
 
@@ -46,8 +47,8 @@ public class ClientHomeView extends JFrame {
         //list displaying people online
         usersOnline = new JList<>();
         usersOnline.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-        usersOnline.setLocation(0, 120);
-        usersOnline.setSize(width /2, 420);
+        usersOnline.setLocation(10, 120);
+        usersOnline.setSize(width /2 - 20, 420);
         mainPanel.add(usersOnline);
 
         JLabel onlineLabel = new JLabel("Online:");
@@ -57,20 +58,21 @@ public class ClientHomeView extends JFrame {
 
         //BUTTONS
         JButton startChat = new JButton("Start Chat");
-        startChat.setLocation(20, 545);
-        startChat.setSize(100, 25);
+        startChat.setLocation(20, 542);
+        startChat.setSize(100, 20);
         startChat.addActionListener(l-> controller.openChatWith(usersOnline.getSelectedValue()));
         mainPanel.add(startChat);
 
         JButton addFriend = new JButton("Add Friend");
-        addFriend.setLocation(250, 545);
-        addFriend.setSize(100, 25);
+        addFriend.setLocation(250, 542);
+        addFriend.setSize(100, 20);
+        addFriend.addActionListener(l -> controller.addFriend(usersOnline.getSelectedIndex()));
         mainPanel.add(addFriend);
 
         //friend-list
-        JList friendList = new JList();
+        friendList = new JList();
         friendList.setLocation(200, 120);
-        friendList.setSize(width /2, 420);
+        friendList.setSize(width /2 - 20, 420);
         mainPanel.add(friendList);
 
         JLabel friendLabel = new JLabel("Friends:");
@@ -84,6 +86,9 @@ public class ClientHomeView extends JFrame {
 
     public void setLoggedInUsers(String[] loggedInUsers) {
         usersOnline.setListData(loggedInUsers);
+    }
+    public void setFriendList(String[] friends) {
+        friendList.setListData(friends);
     }
 
     public void setUser(String username, ImageIcon image) {

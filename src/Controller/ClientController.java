@@ -7,6 +7,7 @@ import View.ChatClient.LoginWindow;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class ClientController {
     private LoginWindow loginView;
@@ -132,5 +133,12 @@ public class ClientController {
         User userToChatWith = loggedInUsers.getByUserName(username);
         ChatWindow chat = new ChatWindow(this, user.getUsername(), userToChatWith.getUsername());
         chatWindows.put(userToChatWith, chat);
+    }
+
+    public void addFriend(int userIndex) {
+        List<User> test = loggedInUsers.getLoggedInUsers();
+        User user = test.get(userIndex);
+        loggedInUsers.addFriend(user);
+        homeView.setFriendList(loggedInUsers.getFriendsStringArray());
     }
 }

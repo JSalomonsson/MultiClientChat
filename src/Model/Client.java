@@ -143,6 +143,15 @@ public class Client {
 
     }
 
+    /**
+     * Loops through the users, creates a networkMessage and if the
+     * username does not equal our username it adds the user to the
+     * logged-in list by calling addNewLoggedInUser from controller.
+     * @param ois
+     * @param numberOfUsers
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void updateLoggedInUsers(ObjectInputStream ois, int numberOfUsers) throws IOException,
             ClassNotFoundException {
         controller.emptyLoggedInUsers();
@@ -153,7 +162,6 @@ public class Client {
                 controller.addNewLoggedInUser(user);
             }
         }
-
         controller.updateLoggedInUsersView();
     }
 

@@ -3,7 +3,9 @@ package View.ChatClient;
 import Controller.*;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
+import java.io.File;
 import java.util.ArrayList;
 
 public class ChatWindow extends JFrame {
@@ -16,13 +18,13 @@ public class ChatWindow extends JFrame {
     private JLabel usersInChat;
     private JPanel mainPanel;
 
-    public ChatWindow(ClientController controller, String thisUser, String userToChatWith){
+    public ChatWindow(ClientController controller, String thisUser, ArrayList<String> userToChatWith){
         super("Chat");
         this.controller = controller;
         setUp(thisUser, userToChatWith); //call setup-method which setUp all GUI-pars for chat window
     }
 
-    private void setUp(String thisUser, String userToChatWith) {
+    private void setUp(String thisUser, ArrayList<String> userToChatWith) {
         //main frame
         this.setSize(600, 600);
         this.setResizable(false);
@@ -48,7 +50,7 @@ public class ChatWindow extends JFrame {
 
         //friends in chat
         peopleInChat = new JList<>();
-        String[] users = new String[]{thisUser, userToChatWith};
+        String[] users = new String[]{thisUser, String.valueOf(userToChatWith)};
         peopleInChat.setListData(users);
         JScrollPane s = new JScrollPane();
         s.setViewportView(peopleInChat);
@@ -71,16 +73,25 @@ public class ChatWindow extends JFrame {
         addImage = new JButton("Image");
         addImage.setLocation(380, 475);
         addImage.setSize(75, 35);
-        //addImage.addActionListener();
+        addImage.addActionListener(l -> selectImage());
         mainPanel.add(addImage);
 
         this.setVisible(true);
+    }
 
+    private void selectImage() {
+       controller.addImageToChat();
     }
 
     public void sendMessage(){
         controller.sendMessage(typeMessageBox.getText(), new ArrayList<String>(java.util.List.of(new String[]{"person 1", "person 2"})));
     }
 
+    public JTextField getTypeMessageBox() {
+        return typeMessageBox;
+    }
 
+    public void clearText() {
+        typeMessageBox.setText("");
+    }
 }

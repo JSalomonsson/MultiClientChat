@@ -57,10 +57,22 @@ public class LoggedInManager {
         return null;
     }
 
+    public User getFriendsByUserName(String username) {
+        for(User user : loggedInUsers){
+            if(user.getUsername().equals(username)){
+                return user;
+            }
+        }
+        return null;
+    }
+
     public List<User> getLoggedInUsers() {
         return loggedInUsers;
     }
 
+    public List<User> getFriends() {
+        return friends;
+    }
 
     public User[] friendsOnline(User user, String[] usersFriend){
         User[] friendsOnline = new User[usersFriend.length];

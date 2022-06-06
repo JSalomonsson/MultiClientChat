@@ -71,6 +71,7 @@ public class Server {
                 break;
             case "chatmessage":
                 ChatMessage chatMessage = (ChatMessage) networkMessage.getData(); //packar upp nätverksmeddelandet
+                clientHandler.sendMessageToClient(new NetworkMessage("chatmessage", chatMessage)); //bara ett test
                 handleIncomingChatMessage(networkMessage, chatMessage.getReceivers());
                 break;
         }
@@ -78,7 +79,7 @@ public class Server {
 
     private void handleIncomingChatMessage(NetworkMessage networkMessage, ArrayList<String> receivers) {
 
-//        for (String receiver: receivers) { //tar receivers och lägger i i receiver-stringen
+//        for (String receiver: receivers) { //tar receivers och lägger i receiver-stringen
 //            ServerClientHandler clientHandler = clients.computeIfAbsent(receiver, username -> {
 //                ServerClientHandler result = new ServerClientHandler();
 //                return result;

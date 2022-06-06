@@ -96,7 +96,7 @@ public class Client {
             try(ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())) {
                 while (!Thread.interrupted()){
                     NetworkMessage networkMessage = buffer.get();
-                    System.out.println("Sending to server: " + networkMessage.getTypeOfMsg());
+                    System.out.println("I Client: Sending to server: " + networkMessage.getTypeOfMsg());
                     oos.writeObject(networkMessage);
                     oos.flush();
                 }

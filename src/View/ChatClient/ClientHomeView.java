@@ -4,6 +4,8 @@ import Controller.ClientController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ClientHomeView extends JFrame {
     private final ClientController controller;
@@ -84,23 +86,34 @@ public class ClientHomeView extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Checkar om du har valt en användare att chatta med,
+     * om inte får du ett felmeddelande. Om du har valt en eller flera
+     * användare adderas de valda användarna till en lista genom addAll() metoden.
+     * Listan skickas med i anropet till metoden openChatWith i controller.
+     * Till sist tas markering bort från de valda användarna i listorna.
+     */
     private void newChatWindow() {
-        Object[] user;
+        ArrayList<Object> selectedUsers = new ArrayList<>();
         if (friendList.isSelectionEmpty() && usersOnline.isSelectionEmpty()){
-            //felmeddelande att måste välja minst en vän
-            System.out.println("Du måste välja minst en kontakt");
+
+            JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "You must select at least one person!");
         }
         else {
-           //befolka user (Object[]-listan) men de valda värden från friendList OCH usersOnline
+            selectedUsers.addAll(friendList.getSelectedValuesList());
+            selectedUsers.addAll(usersOnline.getSelectedValuesList());
+            controller.openChatWith(selectedUsers);
+            friendList.clearSelection();
+            usersOnline.clearSelection();
         }
     }
 
 
     /**
-     * @param loggedInUsers lista över inloggade vänner
+     * @param loggedInUsers lista över inloggade användare
      * befolkar listan med inloggade vänner
      */
-    public void setFriendsOnline(String[] loggedInUsers) {
+    public void setUsersOnline(String[] loggedInUsers) {
         usersOnline.setListData(loggedInUsers);
     }
 

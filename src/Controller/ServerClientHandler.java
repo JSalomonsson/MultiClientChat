@@ -62,6 +62,7 @@ public class ServerClientHandler {
 
     public void sendMessageToClient(NetworkMessage networkMessage) {
         System.out.println("Added message to buffer: " + networkMessage.getTypeOfMsg());
+        System.out.println("i serverClientHandler: " + networkMessage.getData());
         buffer.put(networkMessage);
     }
 

@@ -8,10 +8,10 @@ import java.net.Socket;
 public class Client {
     private User thisUser;
     private Socket socket;
-    private final String host;
-    private final int port;
-    private final Buffer<NetworkMessage> buffer;
-    private final ClientController controller;
+    private String host;
+    private int port;
+    private  Buffer<NetworkMessage> buffer;
+    private ClientController controller;
 
     //konstruktor
     public Client(String host, int port, Buffer<NetworkMessage> buffer, ClientController controller) {
@@ -20,6 +20,7 @@ public class Client {
         this.buffer = buffer;
         this.controller = controller;
     }
+    
 
 
     //connectar till server

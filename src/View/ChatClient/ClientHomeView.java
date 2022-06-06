@@ -46,7 +46,7 @@ public class ClientHomeView extends JFrame {
 
         //list displaying people online
         usersOnline = new JList<>();
-        usersOnline.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
+        usersOnline.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         usersOnline.setLocation(10, 120);
         usersOnline.setSize(width /2 - 20, 420);
         mainPanel.add(usersOnline);
@@ -60,7 +60,7 @@ public class ClientHomeView extends JFrame {
         JButton startChat = new JButton("Start Chat");
         startChat.setLocation(20, 542);
         startChat.setSize(100, 20);
-        startChat.addActionListener(l-> controller.openChatWith(usersOnline.getSelectedValue()));
+        startChat.addActionListener(l-> newChatWindow());
         mainPanel.add(startChat);
 
         JButton addFriend = new JButton("Add Friend");
@@ -71,6 +71,7 @@ public class ClientHomeView extends JFrame {
 
         //friend-list
         friendList = new JList();
+        friendList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         friendList.setLocation(200, 120);
         friendList.setSize(width /2 - 20, 420);
         mainPanel.add(friendList);
@@ -83,14 +84,39 @@ public class ClientHomeView extends JFrame {
         this.setVisible(true);
     }
 
+    private void newChatWindow() {
+        Object[] user;
+        if (friendList.isSelectionEmpty() && usersOnline.isSelectionEmpty()){
+            //felmeddelande att måste välja minst en vän
+            System.out.println("Du måste välja minst en kontakt");
+        }
+        else {
+           //befolka user (Object[]-listan) men de valda värden från friendList OCH usersOnline
+        }
+    }
 
-    public void setLoggedInUsers(String[] loggedInUsers) {
+
+    /**
+     * @param loggedInUsers lista över inloggade vänner
+     * befolkar listan med inloggade vänner
+     */
+    public void setFriendsOnline(String[] loggedInUsers) {
         usersOnline.setListData(loggedInUsers);
     }
+
+    /**
+     * @param friends samtliga kontakter, inloggade eller ej
+     * befolkar listan med vänner, oavsett om dessa är inloggade eller ej
+     */
     public void setFriendList(String[] friends) {
         friendList.setListData(friends);
     }
 
+    /**
+     * @param username inloggat användarnamn
+     * @param image inloggade användarens bild
+     * uppdaterar info om inloggad användare (bild + namn)
+     */
     public void setUser(String username, ImageIcon image) {
         usernameLabel.setText(username);
         imageLabel.setIcon(image);

@@ -1,24 +1,20 @@
 package Controller;
 import Model.*;
-import View.ChatClient.ChatWindow;
-import View.ChatClient.ClientHomeView;
-import View.ChatClient.LoginWindow;
+import View.ChatClient.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class ClientController {
+public class ClientController<T> {
     private LoginWindow loginView;
     private ClientHomeView homeView;
-
     private final HashMap<User, ChatWindow> chatWindows;
     private Client client;
     private User user;
-    private final Buffer<NetworkMessage> buffer;
-
-    private final LoggedInManager loggedInUsers;
+    private  Buffer<T> buffer;
+    private LoggedInManager loggedInUsers;
 
     public ClientController(){
         loginView = new LoginWindow(this);
@@ -28,7 +24,7 @@ public class ClientController {
     }
 
     public void login(User user) {
-        this.client = new Client("localhost", 2343, buffer, this); // skapar en client
+        this.client = new Client("localhost", 2343, (Buffer<NetworkMessage>) buffer, this); // skapar en client
         this.client.connect(user); //connectar clienten
     }
 
@@ -120,7 +116,7 @@ public class ClientController {
     }
 
     public void updateLoggedInUsersView() {
-        homeView.setLoggedInUsers(loggedInUsers.getAsStringArray());
+        homeView.setFriendsOnline(loggedInUsers.getAsStringArray());
         homeView.setUser(user.getUsername(), user.getIcon());
     }
 
@@ -129,8 +125,8 @@ public class ClientController {
         homeView.setup();
     }
 
-    public void openChatWith(String username) {
-        User userToChatWith = loggedInUsers.getByUserName(username);
+    public void openChatWith(Object[] users) {
+        User userToChatWith = loggedInUsers.getByUserName(String.valueOf(users));
         ChatWindow chat = new ChatWindow(this, user.getUsername(), userToChatWith.getUsername());
         chatWindows.put(userToChatWith, chat);
     }

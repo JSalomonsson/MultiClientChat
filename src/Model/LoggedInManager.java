@@ -60,4 +60,13 @@ public class LoggedInManager {
     public List<User> getLoggedInUsers() {
         return loggedInUsers;
     }
+
+
+    public User[] friendsOnline(User user, String[] usersFriend){
+        User[] friendsOnline = new User[usersFriend.length];
+        for(int i=0; i <= usersFriend.length; i++){
+            //spara alla vänner i listan som är online till en ny lista
+        }
+        return friendsOnline;
+    }
 }

@@ -67,12 +67,7 @@ public class LoginWindow extends JFrame {
 
 
     public void newUser(){
-        /*
-        kollar så att man har skrivit ett användarnamn,
-         */
-        if(hasUserName()) {
             myUsername = getUsername();
-        }
         try {
             //sparar bild till användaren, med hjälp av metoden getPicture() som låter dig välja en bild
             BufferedImage bufferedImage = ImageIO.read(new File(choosePicture()));

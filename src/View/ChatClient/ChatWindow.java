@@ -1,30 +1,37 @@
 package View.ChatClient;
 
 import Controller.*;
+import Model.ChatMessage;
+import Model.User;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ChatWindow extends JFrame {
     private final ClientController controller;
     private JTextField typeMessageBox;
-    private JTextArea chat;
+    private JList<ChatMessage> chat;
+    private MessageListRenderer renderer;
     private JButton sendMessage;
     private JButton addImage;
     private JList<String> peopleInChat;
     private JLabel usersInChat;
     private JPanel mainPanel;
+    private ImageIcon imageToSend;
+    private ArrayList<ChatMessage> messages;
 
     public ChatWindow(ClientController controller, String thisUser, ArrayList<String> userToChatWith){
-        super("Chat");
+        super(thisUser + "'s chat");
         this.controller = controller;
         setUp(thisUser, userToChatWith); //call setup-method which setUp all GUI-pars for chat window
     }
 
-    private void setUp(String thisUser, ArrayList<String> userToChatWith) {
+    private void setUp(String thisUser, ArrayList<String> usersToChatWith) {
         //main frame
         this.setSize(600, 600);
         this.setResizable(false);
@@ -34,13 +41,14 @@ public class ChatWindow extends JFrame {
         this.setLocationRelativeTo(null);
 
         //chat window
-        chat = new JTextArea();
-        chat.setEditable(false);
-        chat.setLocation(5, 15);
-        chat.setSize(370, 450);
-        chat.setFont(new Font("Comic sans", Font.PLAIN, 15));
-        chat.setLineWrap(true);
-        mainPanel.add(chat);
+        renderer = new MessageListRenderer();
+        chat = new JList<>();
+        chat.setCellRenderer(renderer);
+        JScrollPane scroll = new JScrollPane(chat);
+        scroll.setLocation(5, 15);
+        scroll.setSize(370, 450);
+        scroll.setFont(new Font("Comic sans", Font.PLAIN, 15));
+        mainPanel.add(scroll);
 
         //message box
         typeMessageBox = new JTextField();
@@ -50,15 +58,17 @@ public class ChatWindow extends JFrame {
 
         //friends in chat
         peopleInChat = new JList<>();
-        String[] users = new String[]{thisUser, String.valueOf(userToChatWith)};
-        peopleInChat.setListData(users);
+        //String[] users = new String[]{thisUser, String.valueOf(userToChatWith)};
+        //peopleInChat.setListData(users);
         JScrollPane s = new JScrollPane();
         s.setViewportView(peopleInChat);
         s.setLocation(380,15);
         s.setSize(200, 450);
+        String[] setChatList = usersToChatWith.toArray(new String[0]);
+        peopleInChat.setListData(setChatList);
         mainPanel.add(s);
 
-        usersInChat = new JLabel("People in chat:");
+        usersInChat = new JLabel("Chatting with:");
         usersInChat.setLocation(380, 0);
         usersInChat.setSize(200, 15);
         mainPanel.add(usersInChat);
@@ -76,15 +86,41 @@ public class ChatWindow extends JFrame {
         addImage.addActionListener(l -> selectImage());
         mainPanel.add(addImage);
 
-        this.setVisible(true);
+        messages = new ArrayList<>();
     }
 
     private void selectImage() {
-       controller.addImageToChat();
+        addImageToChat();
+    }
+
+    public void display(){
+        setVisible(true);
+    }
+
+    /**
+     * This method runs when the user selects to add
+     * an image and send it in the chat. It lets the
+     * user select and image file and sets the image
+     * in ChatMessages to that image.
+     */
+    public void addImageToChat() {
+        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+        File selectedFile = null;
+        int returnValue = jfc.showOpenDialog(null);
+
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            selectedFile = jfc.getSelectedFile();
+        }
+        try {
+            Image image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
+            imageToSend = new ImageIcon(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void sendMessage(){
-        controller.sendMessage(typeMessageBox.getText(), new ArrayList<String>(java.util.List.of(new String[]{"person 1", "person 2"})));
+        controller.sendMessage(typeMessageBox.getText(), imageToSend, sendMessageTo(), this);//new ArrayList<String>(java.util.List.of(new String[]{"person 1", "person 2"})));
     }
 
     public JTextField getTypeMessageBox() {
@@ -93,5 +129,19 @@ public class ChatWindow extends JFrame {
 
     public void clearText() {
         typeMessageBox.setText("");
+    }
+
+    public ArrayList<String> sendMessageTo() {
+        ArrayList<String> list = new ArrayList<>();
+        for (int i = 0; i < peopleInChat.getModel().getSize(); i++) {
+            list.add(peopleInChat.getModel().getElementAt(i));
+        }
+        return list;
+    }
+
+    public void addChatMessage(ChatMessage chatMessage) {
+        messages.add(chatMessage);
+        ChatMessage[] messageArray = messages.toArray(new ChatMessage[0]);
+        chat.setListData(messageArray);
     }
 }

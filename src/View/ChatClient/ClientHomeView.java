@@ -20,7 +20,6 @@ public class ClientHomeView extends JFrame {
         super("CHAT NEW HOME VIEW");
         this.controller = controller;
 
-        setup();
         pack();
     }
 
@@ -49,9 +48,11 @@ public class ClientHomeView extends JFrame {
         //list displaying people online
         usersOnline = new JList<>();
         usersOnline.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        usersOnline.setLocation(10, 120);
-        usersOnline.setSize(width /2 - 20, 420);
-        mainPanel.add(usersOnline);
+        JScrollPane scroll = new JScrollPane();
+        scroll.setViewportView(usersOnline);
+        scroll.setLocation(10,120);
+        scroll.setSize(width / 2 - 20, 420);
+        mainPanel.add(scroll);
 
         JLabel onlineLabel = new JLabel("Online:");
         onlineLabel.setSize(50, 10);
@@ -65,6 +66,12 @@ public class ClientHomeView extends JFrame {
         startChat.addActionListener(l-> newChatWindow());
         mainPanel.add(startChat);
 
+        JButton logout = new JButton("Logout");
+        logout.setLocation(135, 542);
+        logout.setSize(100, 20);
+        logout.addActionListener(l-> logout());
+        mainPanel.add(logout);
+
         JButton addFriend = new JButton("Add Friend");
         addFriend.setLocation(250, 542);
         addFriend.setSize(100, 20);
@@ -74,9 +81,11 @@ public class ClientHomeView extends JFrame {
         //friend-list
         friendList = new JList();
         friendList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        friendList.setLocation(200, 120);
-        friendList.setSize(width /2 - 20, 420);
-        mainPanel.add(friendList);
+        JScrollPane s = new JScrollPane();
+        s.setViewportView(friendList);
+        s.setLocation(200,120);
+        s.setSize(width / 2 - 20, 420);
+        mainPanel.add(s);
 
         JLabel friendLabel = new JLabel("Friends:");
         friendLabel.setSize(50, 10);
@@ -84,6 +93,10 @@ public class ClientHomeView extends JFrame {
         mainPanel.add(friendLabel);
 
         this.setVisible(true);
+    }
+
+    private void logout() {
+        controller.logout();
     }
 
     /**
@@ -94,15 +107,14 @@ public class ClientHomeView extends JFrame {
      * Till sist tas markering bort från de valda användarna i listorna.
      */
     private void newChatWindow() {
-        ArrayList<Object> selectedUsers = new ArrayList<>();
+        ArrayList<String> selectedUsers = new ArrayList<>();
         if (friendList.isSelectionEmpty() && usersOnline.isSelectionEmpty()){
-
             JOptionPane.showMessageDialog(JOptionPane.getRootFrame(), "You must select at least one person!");
         }
         else {
             selectedUsers.addAll(friendList.getSelectedValuesList());
             selectedUsers.addAll(usersOnline.getSelectedValuesList());
-            controller.openChatWith(selectedUsers);
+            controller.openChatWithString(selectedUsers);
             friendList.clearSelection();
             usersOnline.clearSelection();
         }

@@ -17,6 +17,10 @@ public class ClientManager {
         clients.put(user, clientHandler);
     }
 
+    public synchronized ServerClientHandler get(User user){
+        return clients.get(user);
+    }
+
     /**
      * Loops through logged-in users and sends them to the client
      */
@@ -27,5 +31,9 @@ public class ClientManager {
                 clientToSendTo.getValue().sendMessageToClient(new NetworkMessage("userinfo", clientToSend.getKey()));
             }
         }
+    }
+
+    public void remove(User user) {
+        clients.remove(user);
     }
 }

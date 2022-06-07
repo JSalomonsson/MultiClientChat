@@ -2,32 +2,25 @@ package Controller;
 import Model.*;
 import View.ChatClient.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.filechooser.FileSystemView;
-import java.awt.*;
-import java.io.File;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class ClientController<T> {
-    private LoginWindow loginView;
+public class ClientController {
     private ClientHomeView homeView;
-    private final HashMap<User, ChatWindow> chatWindows;
+    private final HashMap<ArrayList<String>, ChatWindow> chatWindows;
     private Client client;
     private User user;
-    private  Buffer<T> buffer;
-    private LoggedInManager loggedInUsers;
-    private ChatWindow chat;
-    private ChatMessage chatMessage;
+    private final Buffer<NetworkMessage> buffer;
+    private final LoggedInManager loggedInUsers;
 
     public ClientController(){
-        loginView = new LoginWindow(this);
+        new LoginWindow(this);
         buffer = new Buffer<>();
-        loggedInUsers = new LoggedInManager(user);
+        loggedInUsers = new LoggedInManager(this);
         chatWindows = new HashMap<>();
-        chatMessage = new ChatMessage();
     }
 
     /**
@@ -49,91 +42,43 @@ public class ClientController<T> {
     public void loginUser(String username, ImageIcon image){
         user = new User(username, image);
         login(user);
+        loggedInUsers.loadFriends();
     }
-
-
-    /*
-    public User newUser() {
-        if(loginGUI.getUsername() != null) {
-            username = loginGUI.getUsername();
-        }
-        try {
-            BufferedImage bufferedImage = ImageIO.read(new File(getPicture()));
-            Image image = bufferedImage.getScaledInstance(75, 75, Image.SCALE_SMOOTH);
-            ImageIcon icon = new ImageIcon(image);
-            user = new User(username, icon);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        //ImageIcon icon = new ImageIcon(client.getPicture());
-        //user = new User(username, icon);
-        //System.out.println(user);
-
-        return user;
-    }
-
-    public String getPicture() {
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        File selectedFile = null;
-        int returnValue = jfc.showOpenDialog(null);
-
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            selectedFile = jfc.getSelectedFile();
-            System.out.println(selectedFile.getAbsolutePath());
-        }
-        return selectedFile.getAbsolutePath();
-    }
-
-   /* public void setUsername() {
-        String username = mainPanel.getUsername();
-        System.out.println(username);
-    }
-
-    public String getUsername() {
-        String username = user.getUsername();
-        return username;
-    }
-
-    public ImageIcon getImage() {
-        ImageIcon image = user.getIcon();
-        return image;
-    }
-
-     */ //new user
 
     /**
-     * If statements to decide which type of message that is to
-     * be sent, text, text and image, image. Then calls the
+     * Creates an arraylist for the receivers and adds the
+     * receiving user to it. If statements to decide what type of message
+     * that is to be sent, text, text and image or image. Then calls the
      * sendChatMessageToServer() and clears the text field and removes
      * the chosen image.
      * @param msg text to be sent
-     * @param receivers receivers
+     * @param peopleToReceive receivers
+     * @param chatWindow
      */
-    public void sendMessage(String msg, ArrayList<String> receivers) {
+    public void sendMessage(String msg, ImageIcon image, ArrayList<String> peopleToReceive, ChatWindow chatWindow) {
         /*
         skapa ett chattmeddelande
         i denna controllern, ha en sendmessage-metod där jag skickar in meddelande
         metoden packar in meddelande i ett network-message
         skicka till servern
          */
-        //TODO försöka hitta smidigare lösning
-        if (!chat.getTypeMessageBox().getText().isEmpty() && chatMessage.getImage() == null) {
-            chatMessage = new ChatMessage(receivers, msg);
-        System.out.println("test1: " + chatMessage.getImage());
+        ChatMessage chatMessage;
+        User usersToReceive;
+        ArrayList<User> receivers = new ArrayList<>();
+        for (int i = 0; i < peopleToReceive.size(); i++) {
+            usersToReceive = loggedInUsers.getByUserName(peopleToReceive.get(i));
+            if (usersToReceive == null) {
+                usersToReceive = loggedInUsers.getByUserName(peopleToReceive.get(i));
+            }
+            receivers.add(usersToReceive);
         }
-        else if (!chat.getTypeMessageBox().getText().isEmpty() && chatMessage.getImage() != null) {
-            chatMessage = new ChatMessage(receivers, msg, chatMessage.getImage());
-            System.out.println("test2: " + chatMessage.getImage());
+            chatMessage = new ChatMessage(receivers, msg, image, user);
+            //TODO: Se över
+            chatMessage.setReceivedByServerAt(LocalDateTime.now());
+            chatWindow.addChatMessage(chatMessage);
+            sendChatMessageToServer(chatMessage);
+            chatWindow.clearText();
         }
-        else if (chat.getTypeMessageBox().getText().isEmpty() && chatMessage.getImage() != null) {
-            chatMessage = new ChatMessage(receivers, chatMessage.getImage());
-            System.out.println("test3: " + chatMessage.getImage());
-        }
-        sendChatMessageToServer(chatMessage);
-        System.out.println("Creating new chat message in ClientController");
-        chat.clearText();
-        chatMessage.setImage(null);
-    }
 
     public void sendChatMessageToServer(ChatMessage msg){
         NetworkMessage message = new NetworkMessage("chatmessage", msg);
@@ -141,7 +86,7 @@ public class ClientController<T> {
     }
 
     public void receiveChatMessageFromServer(ChatMessage chatMessage) {
-        System.out.println(chatMessage.getMessageText());
+        openChatAndAddMessage(chatMessage);
     }
 
     /**
@@ -165,6 +110,7 @@ public class ClientController<T> {
     public void updateLoggedInUsersView() {
         homeView.setUsersOnline(loggedInUsers.getAsStringArray());
         homeView.setUser(user.getUsername(), user.getIcon());
+        homeView.setFriendList(loggedInUsers.getFriendsStringArray());
     }
 
     /**
@@ -177,40 +123,73 @@ public class ClientController<T> {
     }
 
     /**
-     * Opens a new chat window. In a for loop it checks if the usernames
-     * of the chosens users to open a chat with exists in the list of
-     * signed in users. If it doesnt exists it checks the friend list.
-     * When the it finds the username in a list we get the index of the
-     * username and saves the user in the userToAdd variable and adds
-     * the user to the chat.
+     * Opens a new chat window. In a for loop it gets the users
+     * added to the chat by checking for their names on the
+     * signed in list and the friends list. when the user is found
+     * it saves the user in the userToAdd variable and adds
+     * the user to the chat. Lastly we populate the list of users
+     * you are chatting with by creating a string array and using
+     * the setListData() method.
      */
-    public void openChatWith(ArrayList<String> users) {
-        //TODO ta bort kod som inte används
-        /*User usersToChatWith = loggedInUsers.getByUserName(String.valueOf(users));
-        ChatWindow chat = new ChatWindow(this, user.getUsername(), usersToChatWith.getUsername());
-        chatWindows.put(usersToChatWith, chat);
+    public void openChatWithString(ArrayList<String> users) {
+        ChatWindow window;
+        window = findChatWindow(users);
+        if(window == null) {
+            window = new ChatWindow(this, user.getUsername(), users);
+            chatWindows.put(users, window);
+        }
+        window.display();
+    }
 
-        ArrayList<User> usersToChatWith = (ArrayList<User>) users.clone();
-        ChatWindow chat = new ChatWindow(this, user.getUsername(), users);
-        for (int i = 0; i < usersToChatWith.size(); i++) {
-            System.out.println("test1");
-            User userToAdd = usersToChatWith.get(i);
-            System.out.println("test2" + userToAdd);
-            chatWindows.put(userToAdd, chat);
-        } */
-        User userToAdd;
-        chat = new ChatWindow(this, user.getUsername(), users);
-        for (int i = 0; i < users.size(); i++) {
-            if(loggedInUsers.getLoggedInUsers().contains(users.get(i))) {
-                int index = loggedInUsers.getLoggedInUsers().indexOf(users.get(i));
-                userToAdd = loggedInUsers.getLoggedInUsers().get(index);
-                chatWindows.put(userToAdd,chat);
-            } else if(loggedInUsers.getFriends().contains(users.get(i))) {
-                int index = loggedInUsers.getFriends().indexOf(users.get(i));
-                userToAdd = loggedInUsers.getFriends().get(index);
-                chatWindows.put(userToAdd,chat);
+    /**
+     * Opens a new chat window. In a for loop it gets the users
+     * added to the chat by checking for their names on the
+     * signed in list and the friends list. when the user is found
+     * it saves the user in the userToAdd variable and adds
+     * the user to the chat. Lastly we populate the list of users
+     * you are chatting with by creating a string array and using
+     * the setListData() method.
+     */
+    public void openChatAndAddMessage(ChatMessage message) {
+        ArrayList<String> usersInWindowString = new ArrayList<>();
+        for (User user : message.getReceivers()) {
+                usersInWindowString.add(user.getUsername());
+        }
+
+        usersInWindowString.remove(user.getUsername());
+        usersInWindowString.add(message.getSender().getUsername());
+
+        ChatWindow window;
+        window = findChatWindow(usersInWindowString);
+
+        if(window == null) {
+            window = new ChatWindow(this, user.getUsername(), usersInWindowString);
+            chatWindows.put(usersInWindowString, window);
+        }
+        window.addChatMessage(message);
+        window.display();
+    }
+
+    /**
+     * Goes through all windows and tries to find the one with the correct users.
+     */
+    private ChatWindow findChatWindow(ArrayList<String> users) {
+        int numberOfCorrectUsers = 0;
+        for(ArrayList<String> usersInList : chatWindows.keySet()){
+            for(String username : usersInList){
+                for(String username2 : users){
+                    if(username.equals(username2)){
+                        numberOfCorrectUsers++;
+                    }
+                }
+            }
+            if(numberOfCorrectUsers == usersInList.size() && numberOfCorrectUsers == users.size()){
+                return chatWindows.get(usersInList);
+            }else{
+                numberOfCorrectUsers = 0;
             }
         }
+        return null;
     }
 
     /**
@@ -221,29 +200,22 @@ public class ClientController<T> {
      */
     public void addFriend(int userIndex) {
         User user = loggedInUsers.getLoggedInUsers().get(userIndex);
-        loggedInUsers.addFriend(user);
-        homeView.setFriendList(loggedInUsers.getFriendsStringArray());
+        boolean success = loggedInUsers.addFriend(user);
+        if(success) {
+            homeView.setFriendList(loggedInUsers.getFriendsStringArray());
+        }
     }
 
-    /**
-     * This method runs when the user selects to add
-     * an image and send it in the chat. It lets the
-     * user select and image file and sets the image
-     * in ChatMessages to that image.
-     */
-    public void addImageToChat() {
-        JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-        File selectedFile = null;
-        int returnValue = jfc.showOpenDialog(null);
+    public User getUser() {
+        return user;
+    }
 
-        if (returnValue == JFileChooser.APPROVE_OPTION) {
-            selectedFile = jfc.getSelectedFile();
-        }
+    public void logout() {
         try {
-        Image image = ImageIO.read(new File(selectedFile.getAbsolutePath()));
-        chatMessage.setImage(new ImageIcon(image));
+            client.logout();
         } catch (IOException e) {
-        e.printStackTrace();
-     }
+            e.printStackTrace();
+        }
+
     }
 }

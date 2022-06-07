@@ -1,12 +1,14 @@
 package Controller;
 
 import Model.Buffer;
+import Model.ChatMessage;
 import Model.NetworkMessage;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.time.LocalDateTime;
 
 public class ServerClientHandler {
     private Server server;
@@ -23,17 +25,17 @@ public class ServerClientHandler {
     }
 
 
-
     private class ClientInputThread extends Thread {
 
         @Override
         public void run() {
             try (ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
                 while (!Thread.interrupted()) {
-                    receiveMessageFromClient(ois); //tar emot meddelande
+                    if(socket.isConnected()) {
+                        receiveMessageFromClient(ois); //tar emot meddelande
+                    }
                 }
-            } catch (ClassNotFoundException | IOException e) {
-                e.printStackTrace();
+            } catch (ClassNotFoundException | IOException ignore) {
             }
         }
 
@@ -61,8 +63,9 @@ public class ServerClientHandler {
     }
 
     public void sendMessageToClient(NetworkMessage networkMessage) {
-        System.out.println("Added message to buffer: " + networkMessage.getTypeOfMsg());
-        System.out.println("i serverClientHandler: " + networkMessage.getData());
+        if(networkMessage.getTypeOfMsg().equals("chatmessage")){
+            ((ChatMessage)networkMessage.getData()).setDeliveredToReceiverAt(LocalDateTime.now());
+        }
         buffer.put(networkMessage);
     }
 

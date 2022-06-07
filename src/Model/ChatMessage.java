@@ -1,48 +1,36 @@
 package Model;
 
 import javax.swing.*;
-import java.awt.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 //chatmeddelande
     public class ChatMessage implements Serializable {
-        private ArrayList<String> receivers; //arraylist of usernames
-        private String sender; //sending username
-        private ImageIcon Userimage; //sending user's image
+        private ArrayList<User> receivers; //arraylist of usernames
+        private User sender; //sending username
         private String messageText;
         private ImageIcon image;
+        private LocalDateTime receivedByServerAt;
+        private LocalDateTime deliveredToReceiverAt;
 
-        public ChatMessage() {}
-
-        /*
-        en ArrayList talar om att detta är ett objekt med strängar man loopa över, i princip alla listor i java implementerar ArrayList så
-        typ av lista är ej fördefinierat utan den tar emot whatever (typ)
-         */
-        public ChatMessage(ArrayList<String> receivers, String msg) { //för meddelande med enbart text
-            this.receivers = new ArrayList<String>(receivers); //en arraylist av alla som finns i ArrayList receivers-argumentet
-            this.messageText = msg;
-            System.out.println("I ChatMessage klassen: " + msg);
-
-        }
-
-
-        public ChatMessage(ArrayList<String> receivers, String msg, ImageIcon image){//för meddelande med text + bild
-            this.receivers = new ArrayList<>(receivers);
+        public ChatMessage(ArrayList<User> receivers, String msg, ImageIcon image, User sender){//för meddelande med text + bild
+            this.receivers = new ArrayList<User>(receivers);
             this.messageText = msg;
             this.image = image;
+            this.sender = sender;
         }
 
-        public ChatMessage(ArrayList<String> receivers, ImageIcon image){//för meddelande med bara bild
-            this.receivers = new ArrayList<>(receivers);
-            this.image = image;
-        }
+    public User getSender() {
+        return sender;
+    }
 
     public String getMessageText() {
         return messageText;
     }
 
-    public ArrayList<String> getReceivers() {
+    public ArrayList<User> getReceivers() {
         return receivers;
     }
 
@@ -50,8 +38,20 @@ import java.util.ArrayList;
         return image;
     }
 
-    public void setImage(ImageIcon image) {
-        this.image = image;
+    public String getReceivedByServerAt() {
+        return receivedByServerAt.format(DateTimeFormatter.ofPattern(("yyyy.MM.dd HH:mm")));
+    }
+
+    public void setReceivedByServerAt(LocalDateTime receivedByServerAt) {
+        this.receivedByServerAt = receivedByServerAt;
+    }
+
+    public String getDeliveredToReceiverAt() {
+        return deliveredToReceiverAt.format(DateTimeFormatter.ofPattern(("yyyy.MM.dd HH:mm")));
+    }
+
+    public void setDeliveredToReceiverAt(LocalDateTime deliveredToReceiverAt) {
+        this.deliveredToReceiverAt = deliveredToReceiverAt;
     }
 }
 

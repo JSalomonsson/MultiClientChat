@@ -1,5 +1,8 @@
 package Model;
 
+import Controller.ClientController;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,21 +10,59 @@ public class LoggedInManager {
     private final List<User> loggedInUsers;
     private final List<User> friends;
 
-    //private final List<User> friends;
-    private User thisUser;
+    private ClientController controller;
 
-    public LoggedInManager(User thisUser){
+    public LoggedInManager(ClientController controller){
         loggedInUsers = new ArrayList<>();
         friends = new ArrayList<>();
-        this.thisUser = thisUser;
+        this.controller = controller;
     }
 
     public void add(User user){
         loggedInUsers.add(user);
     }
 
-    public void addFriend(User user) {
+    public boolean addFriend(User user) {
+        for(User friend : friends){
+            if(user.getUsername().equals(friend.getUsername())){
+                return false;
+            }
+        }
         friends.add(user);
+        saveFriends();
+        return true;
+    }
+
+    private void saveFriends() {
+        try(FileOutputStream fos = new FileOutputStream("files/" + controller.getUser().getUsername() + ".dat");
+            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            ObjectOutputStream oos = new ObjectOutputStream(bos)){
+            oos.writeInt(friends.size());
+            for(User friend : friends){
+                oos.writeObject(friend);
+            }
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadFriends(){
+        boolean fileExists = new File("files/" + controller.getUser().getUsername() + ".dat").isFile();
+        if(fileExists){
+            try(FileInputStream fis = new FileInputStream("files/" + controller.getUser().getUsername() + ".dat");
+                BufferedInputStream bis = new BufferedInputStream(fis);
+                ObjectInputStream ois = new ObjectInputStream(bis)){
+                int size = ois.readInt();
+                for(int i = 0; i < size; i++){
+                    Object temp = ois.readObject();
+                    if(temp instanceof User friend){
+                        friends.add(friend);
+                    }
+                }
+            }catch(IOException | ClassNotFoundException e){
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -29,7 +70,7 @@ public class LoggedInManager {
         StringBuilder s = new StringBuilder();
 
         for(User user : loggedInUsers){
-            if(!user.getUsername().equals(thisUser.getUsername())) {
+            if(!user.getUsername().equals(controller.getUser().getUsername())) {
                 s.append(user.getUsername()).append("\n");
             }
         }
@@ -54,11 +95,7 @@ public class LoggedInManager {
                 return user;
             }
         }
-        return null;
-    }
-
-    public User getFriendsByUserName(String username) {
-        for(User user : loggedInUsers){
+        for(User user : friends){
             if(user.getUsername().equals(username)){
                 return user;
             }

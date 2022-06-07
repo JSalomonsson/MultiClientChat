@@ -42,44 +42,13 @@ public class Client {
         new ClientThreadInput(socket).start(); //tråd för input
     }
 
-
-    /*
-     /*public void sendMessage(){
-        try{
-            OOS.write(username);
-            OOS.newLine();
-            OOS.flush();
-
-            Scanner scanner = new Scanner(System.in);
-            while(socket.isConnected()){
-                String messageToSend = scanner.nextLine();
-                OOS.write(username + ": " + messageToSend);
-                OOS.newLine();
-                OOS.flush();
-
-            }
-        } catch (IOException e){
-            closeEverything(socket, OOS, OIS);
-        }
-    }
-
-    public void run(){
-        try {
-            while (!Thread.interrupted()){
-                String request = ois.readUTF();
-                if(request.equals("getUser")){
-                    oos.writeObject(user);
-                    oos.flush();
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    } //vilken tråd ska den här tillhöra?
-     */ //VAD GÖR DETTA KODBLOCKET
-
     public void sendNetworkMessage(NetworkMessage message) {
         buffer.put(message);
+    }
+
+    public void logout() throws IOException {
+        NetworkMessage networkMessage = new NetworkMessage("logout", thisUser);
+        sendNetworkMessage(networkMessage);
     }
 
     //CLASS FOR CLIENT THREAD, Output
@@ -97,8 +66,10 @@ public class Client {
                 while (!Thread.interrupted()){
                     NetworkMessage networkMessage = buffer.get();
                     System.out.println("I Client: Sending to server: " + networkMessage.getTypeOfMsg());
-                    oos.writeObject(networkMessage);
-                    oos.flush();
+                    if(socket.isConnected()) {
+                        oos.writeObject(networkMessage);
+                        oos.flush();
+                    }
                 }
             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
@@ -139,6 +110,9 @@ public class Client {
             case "chatmessage" -> {
                 ChatMessage chatMessage = (ChatMessage) networkMessage.getData();
                 controller.receiveChatMessageFromServer(chatMessage);
+            }
+            case "exit" -> {
+                System.exit(0);
             }
         }
 

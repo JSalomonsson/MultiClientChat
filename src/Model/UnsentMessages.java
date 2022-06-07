@@ -2,24 +2,28 @@ package Model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-/*
+
 public class UnsentMessages {
 
-    private HashMap<User, ArrayList<ChatMessage>> unsent;
-
+    private final HashMap<User, ArrayList<ChatMessage>> unsent;
 
     public UnsentMessages() {
         unsent = new HashMap<>();
     }
 
-
-    public synchronized put(User user,ChatMessage message) {
-        // hämta ArrayList – om null skapa en och placera i unsend
-        // lägga till Message i ArrayList
+    public synchronized void put(User user,ChatMessage message) {
+        ArrayList<ChatMessage> messageList = unsent.get(user);
+        if(messageList != null){
+            messageList.add(message);
+        }else {
+            messageList = new ArrayList<>();
+            messageList.add(message);
+            unsent.put(user, messageList);
+        }
     }
 
     public synchronized ArrayList<ChatMessage> get(User user) {
-
+        return unsent.get(user);
     }
 // fler synchronized-metoder som behövs
-} */
+}

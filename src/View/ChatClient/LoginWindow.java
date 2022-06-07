@@ -54,9 +54,7 @@ public class LoginWindow extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             //username = enterUsername.getText();
-            if (!hasUserName()) {
-                System.out.println("There's no user name!");
-            }    else {
+            if (hasUserName()) {
                 newUser();
                 setVisible(false);
                 controller.showMainForm();
@@ -69,7 +67,6 @@ public class LoginWindow extends JFrame {
     public void newUser(){
             myUsername = getUsername();
         try {
-            //sparar bild till användaren, med hjälp av metoden getPicture() som låter dig välja en bild
             BufferedImage bufferedImage = ImageIO.read(new File(choosePicture()));
             Image image = bufferedImage.getScaledInstance(75, 75, Image.SCALE_SMOOTH);
             icon = new ImageIcon(image);

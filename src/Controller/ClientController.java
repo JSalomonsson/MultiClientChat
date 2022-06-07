@@ -32,7 +32,6 @@ public class ClientController {
         this.client = new Client("localhost", 2343, (Buffer<NetworkMessage>) buffer, this); // skapar en client
         this.client.connect(user); //connectar clienten
     }
-
     /**
      * Creates a new user and calls the method that
      * is used to create a new client.
@@ -47,13 +46,9 @@ public class ClientController {
 
     /**
      * Creates an arraylist for the receivers and adds the
-     * receiving user to it. If statements to decide what type of message
-     * that is to be sent, text, text and image or image. Then calls the
-     * sendChatMessageToServer() and clears the text field and removes
-     * the chosen image.
-     * @param msg text to be sent
-     * @param peopleToReceive receivers
-     * @param chatWindow
+     * receiving user to it. Creates a new chatMessage, sets the time
+     * when it was sent to the server and then calls the
+     * sendChatMessageToServer() and clears the text field.
      */
     public void sendMessage(String msg, ImageIcon image, ArrayList<String> peopleToReceive, ChatWindow chatWindow) {
         /*
@@ -67,31 +62,35 @@ public class ClientController {
         ArrayList<User> receivers = new ArrayList<>();
         for (int i = 0; i < peopleToReceive.size(); i++) {
             usersToReceive = loggedInUsers.getByUserName(peopleToReceive.get(i));
-            if (usersToReceive == null) {
+            /*if (usersToReceive == null) {
                 usersToReceive = loggedInUsers.getByUserName(peopleToReceive.get(i));
-            }
+            }*/
             receivers.add(usersToReceive);
         }
             chatMessage = new ChatMessage(receivers, msg, image, user);
-            //TODO: Se över
             chatMessage.setReceivedByServerAt(LocalDateTime.now());
             chatWindow.addChatMessage(chatMessage);
             sendChatMessageToServer(chatMessage);
             chatWindow.clearText();
         }
 
+    /**
+     * Used to send messages to the server
+     */
     public void sendChatMessageToServer(ChatMessage msg){
         NetworkMessage message = new NetworkMessage("chatmessage", msg);
         client.sendNetworkMessage(message);
     }
 
+    /**
+     * Used when receiving messages.
+     */
     public void receiveChatMessageFromServer(ChatMessage chatMessage) {
         openChatAndAddMessage(chatMessage);
     }
 
     /**
      * Adds a new user to the signed in users list.
-     * @param user user added.
      */
     public void addNewLoggedInUser(User user) {
         loggedInUsers.add(user);
@@ -123,13 +122,10 @@ public class ClientController {
     }
 
     /**
-     * Opens a new chat window. In a for loop it gets the users
-     * added to the chat by checking for their names on the
-     * signed in list and the friends list. when the user is found
-     * it saves the user in the userToAdd variable and adds
-     * the user to the chat. Lastly we populate the list of users
-     * you are chatting with by creating a string array and using
-     * the setListData() method.
+     * Creates a ChatWindow with use of the findChatWindow() method
+     * by passing in the users chosen to open with. Checks if the
+     * window is null and if it is we create start a new ChatWindow
+     * and add the users to it.
      */
     public void openChatWithString(ArrayList<String> users) {
         ChatWindow window;
@@ -142,13 +138,11 @@ public class ClientController {
     }
 
     /**
-     * Opens a new chat window. In a for loop it gets the users
-     * added to the chat by checking for their names on the
-     * signed in list and the friends list. when the user is found
-     * it saves the user in the userToAdd variable and adds
-     * the user to the chat. Lastly we populate the list of users
-     * you are chatting with by creating a string array and using
-     * the setListData() method.
+     * Opens a chat window when a user is receives a message.
+     * We add the receivers to an arraylist and remove our
+     * username from it. Then we find the chat window with
+     * the correct users in it. If the window is null we create
+     * a new window and displays the window and message.
      */
     public void openChatAndAddMessage(ChatMessage message) {
         ArrayList<String> usersInWindowString = new ArrayList<>();

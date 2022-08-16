@@ -12,6 +12,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * This is the gui for the window where you chat.
+ */
 public class ChatWindow extends JFrame {
     private final ClientController controller;
     private JTextField typeMessageBox;
@@ -143,5 +146,13 @@ public class ChatWindow extends JFrame {
         messages.add(chatMessage);
         ChatMessage[] messageArray = messages.toArray(new ChatMessage[0]);
         chat.setListData(messageArray);
+    }
+
+    public ImageIcon getImageToSend() {
+        return imageToSend;
+    }
+
+    public void clearImage() {
+        imageToSend.setImage(null);
     }
 }

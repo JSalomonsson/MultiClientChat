@@ -12,7 +12,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-//den här klassen sköter själva servern
+/**
+ * This class controls the server
+ */
 public class Server {
     private ServerSocket serverSocket;
     private final int port;

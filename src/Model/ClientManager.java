@@ -5,6 +5,10 @@ import Controller.ServerClientHandler;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Class that helps manage the clients,
+ * containes a HashMap with users.
+ */
 public class ClientManager {
     HashMap<User, ServerClientHandler> clients; //map över anslutna användare
 
@@ -12,7 +16,9 @@ public class ClientManager {
         clients = new HashMap<>();
     }
 
-
+    /**
+     * Used to add users to the hashmap.
+     */
     public synchronized void add(User user, ServerClientHandler clientHandler) {
         clients.put(user, clientHandler);
     }
@@ -33,6 +39,9 @@ public class ClientManager {
         }
     }
 
+    /**
+     * Used to remove a user from the hashmap.
+     */
     public void remove(User user) {
         clients.remove(user);
     }

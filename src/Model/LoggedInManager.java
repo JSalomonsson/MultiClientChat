@@ -6,6 +6,11 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class that helps manage the program
+ * when you are signed in. For example it helps
+ * handle friends and what users are online.
+ */
 public class LoggedInManager {
     private final List<User> loggedInUsers;
     private final List<User> friends;
@@ -18,10 +23,21 @@ public class LoggedInManager {
         this.controller = controller;
     }
 
+    /**
+     * Adds a user to the logged in users when that
+     * person comes online.
+     */
     public void add(User user){
         loggedInUsers.add(user);
     }
 
+    /**
+     * Loops through the friend list and checks if the
+     * username is already on the friend list. If it is
+     * it returns false and the user isn't added to the list.
+     * Otherwise the user is added to the friend list, the method
+     * saveFriends is called and true is returned.
+     */
     public boolean addFriend(User user) {
         for(User friend : friends){
             if(user.getUsername().equals(friend.getUsername())){
@@ -33,6 +49,9 @@ public class LoggedInManager {
         return true;
     }
 
+    /**
+     * This method is used to save the users friends as a file.
+     */
     private void saveFriends() {
         try(FileOutputStream fos = new FileOutputStream("files/" + controller.getUser().getUsername() + ".dat");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -46,6 +65,9 @@ public class LoggedInManager {
         }
     }
 
+    /**
+     * Method that is used to load friends from a file to the friends list.
+     */
     public void loadFriends(){
         boolean fileExists = new File("files/" + controller.getUser().getUsername() + ".dat").isFile();
         if(fileExists){

@@ -7,6 +7,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This is the gui for the window that shows when you
+ * are signed in and can see friends and people online.
+ */
 public class ClientHomeView extends JFrame {
     private final ClientController controller;
     private JLabel usernameLabel;

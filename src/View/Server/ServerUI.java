@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * This is the gui for the server log.
+ */
 public class ServerUI extends JFrame {
     private JPanel mainPanel;
     private JTextField startDate;
@@ -74,11 +77,6 @@ public class ServerUI extends JFrame {
         mainPanel.add(s);
 
         setVisible(true);
-    }
-
-    public static void main(String[] args) {
-        Server controller = new Server(2343);
-        controller.start();
     }
 
     public void showSelectedLogs(String logs) {

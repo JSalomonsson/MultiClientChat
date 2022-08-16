@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * The window that opens when you run the client and lets
+ * you log in.
+ */
 public class LoginWindow extends JFrame {
     private final ClientController controller;
     private JTextField enterUsername;

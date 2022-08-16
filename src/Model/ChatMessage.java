@@ -6,7 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-//chatmeddelande
+/**
+ * The class for the messages sent in the chat.
+ */
     public class ChatMessage implements Serializable {
         private ArrayList<User> receivers; //arraylist of usernames
         private User sender; //sending username

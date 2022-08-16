@@ -4,7 +4,9 @@ import Controller.ClientController;
 import java.io.*;
 import java.net.Socket;
 
-//
+/**
+ * The class for the Client.
+ */
 public class Client {
     private User thisUser;
     private Socket socket;
@@ -13,16 +15,17 @@ public class Client {
     private  Buffer<NetworkMessage> buffer;
     private ClientController controller;
 
-    //konstruktor
     public Client(String host, int port, Buffer<NetworkMessage> buffer, ClientController controller) {
         this.host = host;
         this.port = port;
         this.buffer = buffer;
         this.controller = controller;
     }
-    
 
-
+    /**
+     * Method that connects the user to the server and
+     * starts a thread for output and a thread for input.
+     */
     //connectar till server
     public void connect(User user) { //startar ny client thread
         this.thisUser = user;
@@ -35,22 +38,29 @@ public class Client {
 
         sendUserInfo(); //skickar userinfo
 
-        //TODO: Check if logged in properly before continue (reply from server)
-
         new ClientThreadOutput(socket).start(); //tråd för output
 
         new ClientThreadInput(socket).start(); //tråd för input
     }
 
+    /**
+     * Puts a NetworkMessage in the buffer.
+     */
     public void sendNetworkMessage(NetworkMessage message) {
         buffer.put(message);
     }
 
+    /**
+     * Method that runs when user signs out.
+     */
     public void logout() throws IOException {
         NetworkMessage networkMessage = new NetworkMessage("logout", thisUser);
         sendNetworkMessage(networkMessage);
     }
 
+    /**
+     * Class for the output part of the program.
+     */
     //CLASS FOR CLIENT THREAD, Output
     public class ClientThreadOutput extends Thread{
         private final Socket socket;
@@ -60,6 +70,12 @@ public class Client {
             this.socket = socket;
         }
 
+        /**
+         * Run method that tries to create a new ObjectOutputStream and
+         * as long as the thread isn't interrupted it gets a network message
+         * from the buffer and if the socket is connected it writes the
+         * message to the output stream and flushes the stream.
+         */
         @Override
         public void run() {
             try(ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream())) {
@@ -77,6 +93,9 @@ public class Client {
         }
     }
 
+    /**
+     * Class for the input part of the program.
+     */
     //CLASS FOR CLIENT THREAD, Input
     public class ClientThreadInput extends Thread {
         private final Socket socket;
@@ -85,6 +104,12 @@ public class Client {
         public ClientThreadInput(Socket socket){
             this.socket = socket;
         }
+
+        /**
+         * Run method that tries to create an ObjectInputStream and as
+         * long as the thread isn't interrupted it calls the recieveMessageFromServer
+         * method.
+         */
         @Override
         public void run() {
             try(ObjectInputStream ois = new ObjectInputStream(socket.getInputStream())) {
@@ -94,10 +119,20 @@ public class Client {
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-
         }
     }
 
+    /**
+     * Method that takes and ObjectInputStream as a parameter.
+     * Creates a NetworkMessage by reading the object in the
+     * input stream. Then we check what type of message it is. If
+     * it is a "logged_in_list" message we get the number of users from
+     * the networkMessage and call the updateLoggedInUsers method.
+     * If it is a "chatmessage" we create a ChatMessage from the data in
+     * the networkMessage and calls the receiveChatmEssageFromServer method
+     * from the client controller class.
+     * If it is a "exit" message we exit the system.
+     */
     private void receiveMessageFromServer(ObjectInputStream ois) throws IOException, ClassNotFoundException {
         NetworkMessage networkMessage = (NetworkMessage) ois.readObject();
         System.out.println(networkMessage.getTypeOfMsg());
@@ -122,10 +157,6 @@ public class Client {
      * Loops through the users, creates a networkMessage and if the
      * username does not equal our username it adds the user to the
      * logged-in list by calling addNewLoggedInUser from controller.
-     * @param ois
-     * @param numberOfUsers
-     * @throws IOException
-     * @throws ClassNotFoundException
      */
     private void updateLoggedInUsers(ObjectInputStream ois, int numberOfUsers) throws IOException,
             ClassNotFoundException {

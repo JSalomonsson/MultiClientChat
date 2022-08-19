@@ -6,6 +6,9 @@ import java.io.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * Class that handles the logs for the server.
+ */
 public class Logs {
 
     private ArrayList<Log> logs;
@@ -16,12 +19,21 @@ public class Logs {
         logs = new ArrayList<>();
     }
 
+    /**
+     * Method to add a string to the log.
+     */
     public void add(String logMsg){
         Log log = new Log(logMsg);
         logs.add(log);
         save();
     }
 
+    /**
+     * Method to save the logs to files.
+     * One file that contains the size of the logs
+     * and one file that contains the information in
+     * the log.
+     */
     private void save() {
         try(FileOutputStream fos = new FileOutputStream("logs/amount_of_logs.dat");
             BufferedOutputStream bos = new BufferedOutputStream(fos);
@@ -44,6 +56,13 @@ public class Logs {
         }
     }
 
+    /**
+     * Method to load the logs from the files. First we
+     * read the amount of logs file to get the size and save
+     * it as a local variable. Then we read the file with the information
+     * that the log contains and uses the size variable to go through
+     * it and add it to an arraylist.
+     */
     public void load(){
         int size = 0;
         File file = new File("logs/amount_of_logs.dat");
@@ -73,6 +92,11 @@ public class Logs {
         }
     }
 
+    /**
+     * Method to get the information in the logs as a string.
+     * When using this method you enter the time period of which
+     * you want to get the logs.
+     */
     public String getTheseLogs(LocalDateTime from, LocalDateTime until) {
         StringBuilder builder = new StringBuilder();
         for(Log log : logs){

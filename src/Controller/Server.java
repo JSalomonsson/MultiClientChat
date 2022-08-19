@@ -35,7 +35,9 @@ public class Server {
         this.port = port;
     }
 
-    //"startar" servern
+    /**
+     * Method to start the server
+     */
     public void start() {
         try {
             serverSocket = new ServerSocket(port); //försöker skapa en serversocket som lyssnar på en specifik port
@@ -45,6 +47,11 @@ public class Server {
         new ServerHandler(serverSocket).start();
     }
 
+    /**
+     * Method to get the server log.
+     * You enter the start date and the end date
+     * for the period of which you wish to see the log.
+     */
     public void getLogsBetween(String fromDate, String endDate) {
         LocalDateTime from = LocalDate.parse(fromDate, DateTimeFormatter.ISO_LOCAL_DATE).atTime(0,0);
         LocalDateTime until = LocalDate.parse(endDate, DateTimeFormatter.ISO_LOCAL_DATE).atTime(23, 59);
@@ -54,7 +61,9 @@ public class Server {
         serverUI.showSelectedLogs(logs);
     }
 
-    //hanterar servern
+    /**
+     * Class that handles the server.
+     */
     public class ServerHandler extends Thread{
         ServerSocket serverSocket;
 
@@ -77,6 +86,10 @@ public class Server {
         }
     }
 
+    /**
+     * Method that sends the unsent message to
+     * the receiving user when he/she comes online.
+     */
     private void handleUnsentMessages(User user) {
         ArrayList<ChatMessage> unsent = unsentMessages.get(user);
         if(unsent != null){
@@ -86,6 +99,20 @@ public class Server {
         }
     }
 
+    /**
+     * Handles the different kinds of incoming messages.
+     * If it is a message of the type "userinfo" a user is created
+     * and added to the hashmap of online users by using and then
+     * the sendLoggedInUsers method is called to send the user the
+     * online users, then the handleUnsentMessages method is called to
+     * send any messages that the user was sent while he/she was offline.
+     * If it is a "chatmessage" we create a new ChatMessage and calls the
+     * method that handles the incoming chat messages.
+     * If it is a "logout" message we create a User and calls the method
+     * to remove the user from the hashmap of online users. Then the
+     * method for updating the online users is called and after that
+     * we create a new Network message of the type "exit".
+     */
     public void handleIncomingMessage(NetworkMessage networkMessage, ServerClientHandler clientHandler){
         switch (networkMessage.getTypeOfMsg()) {
             case "userinfo" -> {
@@ -109,6 +136,13 @@ public class Server {
         }
     }
 
+    /**
+     * Method that handles the incoming ChatMessages.
+     * For loops that goes through the receivers and if
+     * the receiver is online the message is sent. If
+     * the receiver is offline the message is stored
+     * and delivered when the user goes online.
+     */
     private void handleIncomingChatMessage(NetworkMessage networkMessage, ArrayList<User> receivers, User sender) {
         for (User receiver: receivers) { //tar receivers och lägger i receiver-stringen
             ServerClientHandler clientHandler = clients.get(receiver);

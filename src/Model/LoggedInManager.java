@@ -87,6 +87,10 @@ public class LoggedInManager {
         }
     }
 
+    /**
+     * Method that returns a string of the online users.
+     * If statment to make sure we don't add ourselves to the list.
+     */
     @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
@@ -96,21 +100,34 @@ public class LoggedInManager {
                 s.append(user.getUsername()).append("\n");
             }
         }
-
         return s.toString();
     }
 
+    /**
+     * Method to clear the list of the logged in users.
+     */
     public void clear() {
         loggedInUsers.clear();
     }
 
+    /**
+     * Getter for online users list.
+     */
     public String[] getAsStringArray() {
         return loggedInUsers.stream().map(user -> user.getUsername()).toList().toArray(new String[0]);
     }
 
+    /**
+     * Getter for friend list.
+     */
     public String[] getFriendsStringArray() {
         return friends.stream().map(user -> user.getUsername()).toList().toArray(new String[0]);
     }
+
+    /**
+     * Getter that uses a username to return a user from
+     * either the list of logged in users or the friend list.
+     */
     public User getByUserName(String username) {
         for(User user : loggedInUsers){
             if(user.getUsername().equals(username)){

@@ -3,6 +3,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ * Class that has the information about the users
+ * such as the username and the profile picture.
+ */
 public class User implements Serializable {
 
     private String username;
@@ -13,7 +17,6 @@ public class User implements Serializable {
         this.icon = icon;
 
         System.out.println("New user created, name: " + username);
-
     }
 
     public String getUsername(){

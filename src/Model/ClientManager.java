@@ -28,7 +28,7 @@ public class ClientManager {
     }
 
     /**
-     * Loops through logged-in users and sends them to the client
+     * Loops through logged-in users and sends them to the client.
      */
     public synchronized void sendLoggedInUsers() {
         for(Map.Entry<User, ServerClientHandler> clientToSendTo : clients.entrySet()){

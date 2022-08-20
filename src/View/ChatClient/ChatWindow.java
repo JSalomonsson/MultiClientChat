@@ -153,6 +153,6 @@ public class ChatWindow extends JFrame {
     }
 
     public void clearImage() {
-        imageToSend.setImage(null);
+        imageToSend = null;
     }
 }

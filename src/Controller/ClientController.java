@@ -72,10 +72,9 @@ public class ClientController {
             chatWindow.addChatMessage(chatMessage);
             sendChatMessageToServer(chatMessage);
             chatWindow.clearText();
-            //TODO: Make this work.
-           /* if(chatWindow.getImageToSend() != null) {
+            if(chatWindow.getImageToSend() != null) {
                 chatWindow.clearImage();
-            } */
+            }
         }
 
     /**

@@ -4,7 +4,8 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
+//TODO: Ta bort?
+/*
 public class MessageManager {
     private Buffer<ChatMessage> messageBuffer;
     private ObjectOutputStream oos;
@@ -49,4 +50,4 @@ public class MessageManager {
 
         }
     }
-}
+} */

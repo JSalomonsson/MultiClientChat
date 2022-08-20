@@ -3,9 +3,9 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+//TODO: ta bort?
 //skickar ut meddelanden
-public class MessageServer {
+//public class MessageServer {
 
     /*
     private Socket socket;
@@ -62,4 +62,4 @@ public class MessageServer {
 
 
      */
-}
+//}

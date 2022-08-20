@@ -71,6 +71,12 @@ public class Server {
             this.serverSocket = serverSocket;
         }
 
+        /**
+         * Run method that accepts a connection and
+         * calls the connect() method in ServerClientHandler
+         * to start the threads that handle input and output
+         * for the clients.
+         */
         @Override
         public void run() {
             Socket clientSocket;

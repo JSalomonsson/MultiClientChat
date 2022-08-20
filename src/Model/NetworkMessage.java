@@ -2,7 +2,9 @@ package Model;
 
 import java.io.Serializable;
 
-//när jag ska skicka något över nätverket är det denna klassen jag använder (dvs inte en chattmeddelande)
+/**
+ * Class that is used to send messages over the network.
+ */
 public class NetworkMessage  implements Serializable {
     private String typeOfMsg;
     private Object data;

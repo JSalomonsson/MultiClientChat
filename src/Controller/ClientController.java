@@ -51,20 +51,11 @@ public class ClientController {
      * sendChatMessageToServer() and clears the text field.
      */
     public void sendMessage(String msg, ImageIcon image, ArrayList<String> peopleToReceive, ChatWindow chatWindow) {
-        /*
-        skapa ett chattmeddelande
-        i denna controllern, ha en sendmessage-metod där jag skickar in meddelande
-        metoden packar in meddelande i ett network-message
-        skicka till servern
-         */
         ChatMessage chatMessage;
         User usersToReceive;
         ArrayList<User> receivers = new ArrayList<>();
         for (int i = 0; i < peopleToReceive.size(); i++) {
             usersToReceive = loggedInUsers.getByUserName(peopleToReceive.get(i));
-            /*if (usersToReceive == null) {
-                usersToReceive = loggedInUsers.getByUserName(peopleToReceive.get(i));
-            }*/
             receivers.add(usersToReceive);
         }
             chatMessage = new ChatMessage(receivers, msg, image, user);
